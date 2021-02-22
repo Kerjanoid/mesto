@@ -1,0 +1,11 @@
+.element {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: center;
+  height: 361px;
+  width: 282px;
+  border-radius: 4px;
+  background-color: #FFF;
+  overflow: hidden;
+}
