@@ -1,0 +1,10 @@
+.popup__input-field_type_titel {
+  margin-top: 54px;
+}
+
+@media screen and (max-width: 550px) {
+  .popup__input-field_type_titel {
+    margin-top: 75px;
+  }
+}
+

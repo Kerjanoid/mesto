@@ -1,4 +1,4 @@
-.add-button {
+.profile__add-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,14 +12,15 @@
   background-color: rgba(0, 0, 0, 0);
   cursor: pointer;
   outline: none;
+  transition: .3s linear;
 }
 
-.add-button:hover {
+.profile__add-button:hover {
   opacity: .6;
 }
 
 @media screen and (max-width: 800px) {
-  .add-button {
+  .profile__add-button {
     margin-top: 36px;
     width: 282px;
   }

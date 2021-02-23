@@ -4,7 +4,7 @@
   width: 142px;
   height: 33px;
   background-size: cover;
-
+  transition: .3s linear;
 }
 
 .header__logo:hover {

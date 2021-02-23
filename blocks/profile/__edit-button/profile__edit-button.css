@@ -1,4 +1,4 @@
-.edit-button {
+.profile__edit-button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,14 +12,15 @@
   cursor: pointer;
   outline: none;
   align-self: center;
+  transition: .3s linear;
 }
 
-.edit-button:hover {
+.profile__edit-button:hover {
   opacity: .6;
 }
 
 @media screen and (max-width: 800px) {
-  .edit-button {
+  .profile__edit-button {
     height: 16px;
     width: 16px;
   }

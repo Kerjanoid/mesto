@@ -12,6 +12,7 @@
   text-align: center;
   color: #FFF;
   cursor: pointer;
+  transition: .3s linear;
 }
 
 .popup__save-button:hover {

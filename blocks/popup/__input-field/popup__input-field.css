@@ -1,5 +1,5 @@
 .popup__input-field {
-  margin: 54px 0 0 0;
+  margin: 0;
   padding: 0;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
@@ -11,18 +11,6 @@
   outline: none;
 }
 
-.popup__input-field:last-of-type {
-  margin-top: 30px;
-}
-
 .popup__input-field:focus {
   outline: 2px solid rgba(0, 72, 117, .6);
 }
-
-@media screen and (max-width: 550px) {
-  .popup__input-field {
-    margin-top: 75px;
-  }
-}
-
-
