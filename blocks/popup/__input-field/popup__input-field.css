@@ -7,13 +7,16 @@
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
-  color: #000000;
-  outline: none;
   height: 27px;
+  outline: none;
 }
 
 .popup__input-field:last-of-type {
   margin-top: 30px;
+}
+
+.popup__input-field:focus {
+  outline: 2px solid rgba(0, 72, 117, .6);
 }
 
 @media screen and (max-width: 550px) {
@@ -21,3 +24,5 @@
     margin-top: 75px;
   }
 }
+
+
