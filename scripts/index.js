@@ -109,3 +109,17 @@ function renderList() {
 
 renderList()
 
+// Удаление карточки
+const deleteButton = document.querySelectorAll('.element__trash-button');
+
+function deleteCard(evt) {
+	const target = evt.target;
+	const currentCard = target.closest('.element');
+
+	currentCard.remove();
+}
+
+
+deleteButton.forEach((button) => button.addEventListener('click', deleteCard));
+
+
