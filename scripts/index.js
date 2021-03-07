@@ -83,6 +83,7 @@ const initialCards = [
 const container = document.querySelector('.elements');
 const templateElement = document.querySelector('.template');
 
+// Template нода
 function createDomNode(item) {
 	const newCard = templateElement.content.cloneNode(true);
 	const title = newCard.querySelector('.element__title');
@@ -93,7 +94,7 @@ function createDomNode(item) {
 	return newCard;
 }
 
-
+// Рендер карточек "из коробки"
 function renderList() {
 	const result = initialCards.map(function(item) {
 		const newCard = createDomNode(item);
