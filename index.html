@@ -74,7 +74,7 @@
     <p class="footer__text">&COPY; 2021 Mesto Russia</p>
   </footer>
 
-  <div class="popup">
+  <div class="popup popup_edit-profile">
     <div class="popup__content">
       <button type="button" class="popup__close-button" aria-label="закрыть"><img class="popup__close-button-img" src="images/Close_Icon.svg" alt="закрыть"></button>
       <form class="popup__form" name="edit-form">
@@ -84,6 +84,30 @@
         <button class="popup__save-button" type="submit" aria-label="сохранить">Сохранить</button>
       </form>
     </div>
+  </div>
+
+  <div class="popup popup_new-picture">
+    <div class="popup__content">
+      <button type="button" class="popup__close-button" aria-label="закрыть"><img class="popup__close-button-img" src="images/Close_Icon.svg" alt="закрыть"></button>
+      <form class="popup__form" name="edit-form">
+        <h2 class="popup__titel">Новое место</h2>
+        <input class="popup__input-field popup__input-field_type_titel" required placeholder="Название" type="text" value="" name="titel">
+        <input class="popup__input-field popup__input-field_type_subtitel" required placeholder="Ссылка на картинку" type="url" value="" name="picture">
+        <button class="popup__save-button" type="submit" aria-label="сохранить">Сохранить</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="popup popup_view-picture">
+    <!-- <div class="popup__content">
+      <button type="button" class="popup__close-button" aria-label="закрыть"><img class="popup__close-button-img" src="images/Close_Icon.svg" alt="закрыть"></button>
+      <form class="popup__form" name="edit-form">
+        <h2 class="popup__titel">Новое место</h2>
+        <input class="popup__input-field popup__input-field_type_titel" required placeholder="Название" type="text" value="" name="titel">
+        <input class="popup__input-field popup__input-field_type_subtitel" required placeholder="Ссылка на картинку" type="url" value="" name="picture">
+        <button class="popup__save-button" type="submit" aria-label="сохранить">Сохранить</button>
+      </form>
+    </div> -->
   </div>
 
   <script src="scripts/index.js"></script>
