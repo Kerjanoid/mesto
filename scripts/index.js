@@ -32,31 +32,7 @@ function closePopup(event) {
 
 closeButton.forEach((button) => button.addEventListener('click', closePopup));
 
-// closeButton.forEach((button) => button.addEventListener('click', () => {
-//   closePopup(popupNewPic);
-// }));
-
-// closeButton.addEventListener('click', () => {
-//   closePopup(popupNewPic);
-// });
-
-
-
-// function openPopupNewPic() {
-//   popupNewPic.classList.add('popup_opened');
-// };
-
-// function openPopupViewPic() {
-//   popupViewPic.classList.add('popup_opened');
-// };
-
-// function closePopup() {
-//   popupProfile.classList.remove('popup_opened');
-//   popupNewPic.classList.remove('popup_opened');
-// };
-
-// editProfile.addEventListener('click', openPopupProfile);
-// closeButton.addEventListener('click', closePopup);
+// Сохранение изменений в профиле
 
 function changeProfile(event) {
   event.preventDefault();
@@ -67,20 +43,67 @@ function changeProfile(event) {
 
 formElement.addEventListener('submit', changeProfile);
 
-// addPicture.addEventListener('click', openPopupNewPic);
+// Установка лайков
 
-//function changeProfile(event) {
-  //event.preventDefault();
-  //profileTitel.textContent = inputFieldTitel.value;
-  //profileSubtitle.textContent = inputFieldSubtitel.value;
-  //togglePopup();
-//};
+// for (let i= 0; i < likes.length; i++) {
+//   likes[i].addEventListener('click', function() {
+//     likes[i].classList.toggle('element__like_active');
+//   });
+// }
 
-//formElement.addEventListener('submit', changeProfile);
+// Карточки "из коробки"
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
 
-for (let i= 0; i < likes.length; i++) {
-  likes[i].addEventListener('click', function() {
-    likes[i].classList.toggle('element__like_active');
-  });
+// Работа с Template
+const container = document.querySelector('.elements');
+const templateElement = document.querySelector('.template');
+
+function createDomNode(item) {
+	const newCard = templateElement.content.cloneNode(true);
+	const title = newCard.querySelector('.element__title');
+  const picture = newCard.querySelector('.element__img');
+	title.textContent = item.name;
+  picture.src = item.link;
+
+	return newCard;
 }
+
+
+function renderList() {
+	const result = initialCards.map(function(item) {
+		const newCard = createDomNode(item);
+		// addTaskListeners(newCard);
+
+		return newCard;
+	});
+
+	container.append(...result);
+}
+
+renderList()
 
