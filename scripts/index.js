@@ -89,6 +89,7 @@ function createDomNode(item) {
 	const title = newCard.querySelector('.element__title');
   const picture = newCard.querySelector('.element__img');
 	title.textContent = item.name;
+  picture.alt = item.name;
   picture.src = item.link;
 
 	return newCard;
