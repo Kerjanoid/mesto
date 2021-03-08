@@ -36,7 +36,7 @@
   <div class="popup popup_edit-profile">
     <div class="popup__content">
       <button type="button" class="popup__close-button" aria-label="закрыть"><img class="popup__close-button-img" src="images/Close_Icon.svg" alt="закрыть"></button>
-      <form class="popup__form" name="edit-form">
+      <form class="popup__form popup__form_edit-profile" name="edit-form">
         <h2 class="popup__titel">Редактировать профиль</h2>
         <input class="popup__input-field popup__input-field_type_titel" required placeholder="Введите имя" type="text" value="" name="titel">
         <input class="popup__input-field popup__input-field_type_subtitel" required placeholder="Введите профессию" type="text" value="" name="subtitel">
@@ -48,10 +48,10 @@
   <div class="popup popup_new-picture">
     <div class="popup__content">
       <button type="button" class="popup__close-button" aria-label="закрыть"><img class="popup__close-button-img" src="images/Close_Icon.svg" alt="закрыть"></button>
-      <form class="popup__form" name="edit-form">
+      <form class="popup__form popup__form_new-picture" name="edit-form">
         <h2 class="popup__titel">Новое место</h2>
-        <input class="popup__input-field popup__input-field_type_titel" required placeholder="Название" type="text" value="" name="titel">
-        <input class="popup__input-field popup__input-field_type_subtitel" required placeholder="Ссылка на картинку" type="url" value="" name="picture">
+        <input class="popup__input-field popup__input-field_type_pic-titel" required placeholder="Название" type="text" value="" name="titel">
+        <input class="popup__input-field popup__input-field_type_pic-link" required placeholder="Ссылка на картинку" type="url" value="" name="picture">
         <button class="popup__save-button" type="submit" aria-label="сохранить">Создать</button>
       </form>
     </div>

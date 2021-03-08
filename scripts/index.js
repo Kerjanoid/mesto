@@ -4,12 +4,16 @@ const popupProfile = document.querySelector('.popup_edit-profile');
 const popupNewPic = document.querySelector('.popup_new-picture');
 const popupViewPic = document.querySelector('.popup_view-picture');
 const closeButton = document.querySelectorAll('.popup__close-button');
-const formElement = document.querySelector('.popup__content');
+const formProfElement = document.querySelector('.popup__form_edit-profile');
+const formPicElement = document.querySelector('.popup__form_new-picture');
 const profileTitel = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 const inputFieldTitel = document.querySelector('.popup__input-field_type_titel');
 const inputFieldSubtitel = document.querySelector('.popup__input-field_type_subtitel');
-const likes = document.querySelectorAll('.element__like');
+const inputFieldPicTitel = document.querySelector('.popup__input-field_type_pic-titel');
+const inputFieldPicLink = document.querySelector('.popup__input-field_type_pic-link');
+const picCardTitel = document.querySelector('.element__title');
+const picCardImg = document.querySelector('.element__img');
 const addPicture = document.querySelector('.profile__add-button');
 
 function openPopup(popup) {
@@ -33,6 +37,8 @@ function closePopup(event) {
 closeButton.forEach((button) => button.addEventListener('click', closePopup));
 
 // Сохранение изменений в профиле
+  inputFieldTitel.value = profileTitel.textContent;
+  inputFieldSubtitel.value = profileSubtitle.textContent;
 
 function changeProfile(event) {
   event.preventDefault();
@@ -41,15 +47,9 @@ function changeProfile(event) {
   closePopup(event);
 };
 
-formElement.addEventListener('submit', changeProfile);
+formProfElement.addEventListener('submit', changeProfile);
 
-// Установка лайков
 
-// for (let i= 0; i < likes.length; i++) {
-//   likes[i].addEventListener('click', function() {
-//     likes[i].classList.toggle('element__like_active');
-//   });
-// }
 
 // Карточки "из коробки"
 const initialCards = [
@@ -81,16 +81,20 @@ const initialCards = [
 
 // Работа с Template
 const container = document.querySelector('.elements');
-const templateElement = document.querySelector('.template');
+const templateElement = document.querySelector('.template').content;
 
 // Template нода
 function createDomNode(item) {
-	const newCard = templateElement.content.cloneNode(true);
+	const newCard = templateElement.querySelector('.element').cloneNode(true);
 	const title = newCard.querySelector('.element__title');
   const picture = newCard.querySelector('.element__img');
 	title.textContent = item.name;
   picture.alt = item.name;
   picture.src = item.link;
+  const deleteButton = newCard.querySelector('.element__trash-button');
+  deleteButton.addEventListener('click', deleteCard);
+  const toggleLikes = newCard.querySelector('.element__like');
+  toggleLikes.addEventListener('click', toggleLike);
 
 	return newCard;
 }
@@ -99,7 +103,6 @@ function createDomNode(item) {
 function renderList() {
 	const result = initialCards.map(function(item) {
 		const newCard = createDomNode(item);
-		// addTaskListeners(newCard);
 
 		return newCard;
 	});
@@ -110,16 +113,32 @@ function renderList() {
 renderList()
 
 // Удаление карточки
-const deleteButton = document.querySelectorAll('.element__trash-button');
 
-function deleteCard(evt) {
-	const target = evt.target;
+function deleteCard(event) {
+	const target = event.target;
 	const currentCard = target.closest('.element');
 
 	currentCard.remove();
 }
 
 
-deleteButton.forEach((button) => button.addEventListener('click', deleteCard));
+// Добавление карточек
 
+function addCard (event) {
+  event.preventDefault();
+  const card = createDomNode({name: inputFieldPicTitel.value, link: inputFieldPicLink.value});
+  container.prepend(card);
+  closePopup(event);
+  inputFieldPicTitel.value ='';
+  inputFieldPicLink.value ='';
+}
 
+formPicElement.addEventListener('submit', addCard);
+
+// Установка лайков
+
+function toggleLike(event) {
+	const target = event.target;
+  
+	target.classList.toggle('element__like_active');
+}

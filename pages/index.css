@@ -27,12 +27,16 @@
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/__content/popup__content.css);
 @import url(../blocks/popup/__form/popup__form.css);
+@import url(../blocks/popup/__form/_edit-profile/popup__form_edit-profile.css);
+@import url(../blocks/popup/__form/_new-picture/popup__form_new-picture.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 @import url(../blocks/popup/__close-button-img/popup__close-button-img.css);
 @import url(../blocks/popup/__titel/popup__titel.css);
 @import url(../blocks/popup/__input-field/popup__input-field.css);
 @import url(../blocks/popup/__input-field/_type/popup__input-field_type_titel.css);
 @import url(../blocks/popup/__input-field/_type/popup__input-field_type_subtitel.css);
+@import url(../blocks/popup/__input-field/_type/popup__input-field_type_pic-titel.css);
+@import url(../blocks/popup/__input-field/_type/popup__input-field_type_pic-link.css);
 @import url(../blocks/popup/__save-button/popup__save-button.css);
 @import url(../blocks/popup/_opened/popup_opened.css);
 @import url(../blocks/popup/_edit-profile/popup_edit-profile.css);
