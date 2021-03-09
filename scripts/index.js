@@ -27,11 +27,14 @@ addPicture.addEventListener('click', () => {
   openPopup(popupNewPic);
 })
 
-
 function closePopup(event) {
   const theTarget = event.target;
   const thePopup = theTarget.closest('.popup');
   thePopup.classList.remove('popup_opened');
+  inputFieldPicTitel.value ='';
+  inputFieldPicLink.value ='';
+  inputFieldTitel.value = profileTitel.textContent;
+  inputFieldSubtitel.value = profileSubtitle.textContent;
 }
 
 closeButton.forEach((button) => button.addEventListener('click', closePopup));
@@ -48,8 +51,6 @@ function changeProfile(event) {
 }
 
 formProfElement.addEventListener('submit', changeProfile);
-
-
 
 // Карточки "из коробки"
 const initialCards = [
@@ -106,24 +107,20 @@ function renderList() {
 
 		return newCard;
 	});
-
 	container.append(...result);
 }
 
 renderList()
 
 // Удаление карточки
-
 function deleteCard(event) {
-	const target = event.target;
-	const currentCard = target.closest('.element');
-
+	const theTarget = event.target;
+	const currentCard = theTarget.closest('.element');
 	currentCard.remove();
 }
 
 
 // Добавление карточек
-
 function addCard (event) {
   event.preventDefault();
   const card = createDomNode({name: inputFieldPicTitel.value, link: inputFieldPicLink.value});
@@ -136,15 +133,12 @@ function addCard (event) {
 formPicElement.addEventListener('submit', addCard);
 
 // Установка лайков
-
 function toggleLike(event) {
 	const target = event.target;
-
 	target.classList.toggle('element__like_active');
 }
 
 // Попап картинки
-
 function openPic(picture) {
   picture.addEventListener('click', () => {
   const hugePic = document.querySelector('.popup__huge-picture');
