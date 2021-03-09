@@ -12,27 +12,27 @@ const inputFieldTitel = document.querySelector('.popup__input-field_type_titel')
 const inputFieldSubtitel = document.querySelector('.popup__input-field_type_subtitel');
 const inputFieldPicTitel = document.querySelector('.popup__input-field_type_pic-titel');
 const inputFieldPicLink = document.querySelector('.popup__input-field_type_pic-link');
-const picCardTitel = document.querySelector('.element__title');
-const picCardImg = document.querySelector('.element__img');
+const picsElement = document.querySelectorAll('.element__img');
 const addPicture = document.querySelector('.profile__add-button');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-};
+}
 
 editProfile.addEventListener('click', () => {
   openPopup(popupProfile);
-});
+})
 
 addPicture.addEventListener('click', () => {
   openPopup(popupNewPic);
-});
+})
+
 
 function closePopup(event) {
   const theTarget = event.target;
   const thePopup = theTarget.closest('.popup');
   thePopup.classList.remove('popup_opened');
-};
+}
 
 closeButton.forEach((button) => button.addEventListener('click', closePopup));
 
@@ -45,7 +45,7 @@ function changeProfile(event) {
   profileTitel.textContent = inputFieldTitel.value;
   profileSubtitle.textContent = inputFieldSubtitel.value;
   closePopup(event);
-};
+}
 
 formProfElement.addEventListener('submit', changeProfile);
 
@@ -95,7 +95,7 @@ function createDomNode(item) {
   deleteButton.addEventListener('click', deleteCard);
   const toggleLikes = newCard.querySelector('.element__like');
   toggleLikes.addEventListener('click', toggleLike);
-
+  openPic(picture);
 	return newCard;
 }
 
@@ -139,6 +139,20 @@ formPicElement.addEventListener('submit', addCard);
 
 function toggleLike(event) {
 	const target = event.target;
-  
+
 	target.classList.toggle('element__like_active');
+}
+
+// Попап картинки
+
+function openPic(picture) {
+  picture.addEventListener('click', () => {
+  const hugePic = document.querySelector('.popup__huge-picture');
+  const hugePicFigcap = document.querySelector('.popup__figcaption');
+  hugePic.alt = picture.alt;
+  hugePicFigcap.textContent = picture.alt;
+  hugePic.src = picture.src;
+	popupViewPic.classList.add('popup_opened');
+  openPopup(popupViewPic);
+});
 }
