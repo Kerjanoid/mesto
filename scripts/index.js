@@ -3,7 +3,7 @@ const popup = document.querySelector('.popup');
 const popupProfile = document.querySelector('.popup_edit-profile');
 const popupNewPic = document.querySelector('.popup_new-picture');
 const popupViewPic = document.querySelector('.popup_view-picture');
-const closeButton = document.querySelectorAll('.popup__close-button');
+const closeButtons = document.querySelectorAll('.popup__close-button');
 const formProfElement = document.querySelector('.popup__form_edit-profile');
 const formPicElement = document.querySelector('.popup__form_new-picture');
 const profileTitel = document.querySelector('.profile__title');
@@ -12,7 +12,7 @@ const inputFieldTitel = document.querySelector('.popup__input-field_type_titel')
 const inputFieldSubtitel = document.querySelector('.popup__input-field_type_subtitel');
 const inputFieldPicTitel = document.querySelector('.popup__input-field_type_pic-titel');
 const inputFieldPicLink = document.querySelector('.popup__input-field_type_pic-link');
-const picsElement = document.querySelectorAll('.element__img');
+const picElements = document.querySelectorAll('.element__img');
 const addPicture = document.querySelector('.profile__add-button');
 
 function openPopup(popup) {
@@ -22,10 +22,14 @@ function openPopup(popup) {
 }
 
 editProfile.addEventListener('click', () => {
+  inputFieldTitel.value = profileTitel.textContent;
+  inputFieldSubtitel.value = profileSubtitle.textContent;
   openPopup(popupProfile);
 })
 
 addPicture.addEventListener('click', () => {
+  inputFieldPicTitel.value ='';
+  inputFieldPicLink.value ='';
   openPopup(popupNewPic);
 })
 
@@ -36,17 +40,14 @@ function closePopup(event) {
   document.removeEventListener('keydown', keyHandler);
 }
 
-closeButton.forEach((button) => button.addEventListener('click', closePopup));
+closeButtons.forEach((button) => button.addEventListener('click', closePopup));
 
 // Сохранение изменений в профиле
-  inputFieldTitel.value = profileTitel.textContent;
-  inputFieldSubtitel.value = profileSubtitle.textContent;
-
 function changeProfile(event) {
   event.preventDefault();
   profileTitel.textContent = inputFieldTitel.value;
   profileSubtitle.textContent = inputFieldSubtitel.value;
-  closePopup(event);
+  closePopup();
 }
 
 formProfElement.addEventListener('submit', changeProfile);
@@ -125,9 +126,7 @@ function addCard (event) {
   event.preventDefault();
   const card = createDomNode({name: inputFieldPicTitel.value, link: inputFieldPicLink.value});
   container.prepend(card);
-  closePopup(event);
-  inputFieldPicTitel.value ='';
-  inputFieldPicLink.value ='';
+  closePopup();
 }
 
 formPicElement.addEventListener('submit', addCard);
@@ -139,14 +138,14 @@ function toggleLike(event) {
 }
 
 // Попап картинки
+const hugePic = document.querySelector('.popup__huge-picture');
+const hugePicFigcap = document.querySelector('.popup__figcaption');
+
 function openPic(picture) {
   picture.addEventListener('click', () => {
-  const hugePic = document.querySelector('.popup__huge-picture');
-  const hugePicFigcap = document.querySelector('.popup__figcaption');
   hugePic.alt = picture.alt;
   hugePicFigcap.textContent = picture.alt;
   hugePic.src = picture.src;
-	popupViewPic.classList.add('popup_opened');
   openPopup(popupViewPic);
 });
 }
