@@ -17,6 +17,7 @@ const addPicture = document.querySelector('.profile__add-button');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', keyHandler);
 }
 
 editProfile.addEventListener('click', () => {
@@ -31,10 +32,7 @@ function closePopup(event) {
   const theTarget = event.target;
   const thePopup = theTarget.closest('.popup');
   thePopup.classList.remove('popup_opened');
-  inputFieldPicTitel.value ='';
-  inputFieldPicLink.value ='';
-  inputFieldTitel.value = profileTitel.textContent;
-  inputFieldSubtitel.value = profileSubtitle.textContent;
+  document.removeEventListener('keydown', keyHandler);
 }
 
 closeButton.forEach((button) => button.addEventListener('click', closePopup));
@@ -51,6 +49,7 @@ function changeProfile(event) {
 }
 
 formProfElement.addEventListener('submit', changeProfile);
+
 
 // Карточки "из коробки"
 const initialCards = [
@@ -149,4 +148,13 @@ function openPic(picture) {
 	popupViewPic.classList.add('popup_opened');
   openPopup(popupViewPic);
 });
+}
+
+// Функция закрытия на ESC
+function keyHandler(evt) {
+  const openedPopup = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape') {
+    openedPopup.classList.remove('popup_opened');
+    document.removeEventListener('keydown', keyHandler);
+  }
 }

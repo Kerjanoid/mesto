@@ -8,33 +8,33 @@ const formObject = {
 }
 
 //Объявляем функцию enableValidation
-const enableValidation = ({formSelector, inputSelector}) => {
-  const fromList = Array.from(document.querySelectorAll(formSelector));
+const enableValidation = (formObject) => {
+  const fromList = Array.from(document.querySelectorAll(formObject.formSelector));
   fromList.forEach((formElement) => {
     formElement.addEventListener('submit', function (evt) {
       evt.preventDefault();
     });
-    const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-    inputList.forEach((input) => {
-      setEventListeners(input);
+
+    fromList.forEach((formElement) => {
+      setEventListeners(formElement, formObject);
     });
   });
 }
 
 //Объявляем функцию setEventListeners
-const setEventListeners = ({formElement, inputSelector, submitButtonSelector}) => {
-  const inputList = Array.from(document.querySelectorAll(inputSelector));
-  const buttonElement = formElement.querySelector(submitButtonSelector);
+const setEventListeners = (formElement, formObject) => {
+  const inputList = Array.from(formElement.querySelectorAll(formObject.inputSelector));
+  const buttonElement = formElement.querySelector(formObject.submitButtonSelector);
 
-  toggleButtonState(inputList, buttonElement);
+  toggleButtonState(inputList, buttonElement, formObject);
 
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
       checkInputValidity(formElement, inputElement);
-      toggleButtonState(inputList, buttonElement);
+      toggleButtonState(inputList, buttonElement, formObject);
     });
   });
-}
+};
 
 //Объявляем функцию hasInvalidInput - проверка наличия хотя бы одного невалидного поля
 const hasInvalidInput = (inputList) => {
@@ -44,38 +44,38 @@ const hasInvalidInput = (inputList) => {
 };
 
 //Объявляем функцию toggleButtonState - изменение состояния кнопки
-const toggleButtonState = (inputList, buttonElement) => {
+const toggleButtonState = (inputList, buttonElement, formObject) => {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(inactiveButtonClass);
+    buttonElement.classList.add(formObject.inactiveButtonClass);
   } else {
-    buttonElement.classList.remove(inactiveButtonClass);
+    buttonElement.classList.remove(formObject.inactiveButtonClass);
   }
 };
 
 //Объявляем функцию showInputError - вывод сообщения об ошибке для невалидных полей
-const showInputError = (formElement, inputElement, errorMessage) => {
-  const inputName = input.getAttribute('name');
-  const errorElement = formElement.querySelector(`${inputName}-error`);
-  inputElement.classList.add(inputErrorClass);
+const showInputError = (formElement, inputElement, errorMessage, formObject) => {
+  const inputName = inputElement.getAttribute('name');
+  const errorElement = formElement.querySelector(`#${inputName}-error`);
+  inputElement.classList.add(formObject.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add(errorClass);
+  errorElement.classList.add(formObject.errorClass);
 };
 
 //Объявляем функцию hideInputError - удалениесообщения об ошибке для невалидных полей
-const hideInputError = (formElement, inputElement) => {
-  const inputName = input.getAttribute('name');
-  const errorElement = formElement.querySelector(`${inputName}-error`);
-  inputElement.classList.remove(inputErrorClass);
-  errorElement.classList.remove(errorClass);
+const hideInputError = (formElement, inputElement, formObject) => {
+  const inputName = inputElement.getAttribute('name');
+  const errorElement = formElement.querySelector(`#${inputName}-error`);
+  inputElement.classList.remove(formObject.inputErrorClass);
+  errorElement.classList.remove(formObject.errorClass);
   errorElement.textContent = '';
 };
 
 //Объявляем функцию checkInputValidity - проверка валидности полей ввода
 const checkInputValidity = (formElement, inputElement) => {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+    showInputError(formElement, inputElement, inputElement.validationMessage, formObject);
   } else {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, formObject);
   }
 };
 
