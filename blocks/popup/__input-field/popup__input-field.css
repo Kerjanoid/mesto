@@ -9,6 +9,7 @@
   line-height: 17px;
   height: 27px;
   outline: none;
+  position: relative;
 }
 
 .popup__input-field:first-of-type {
