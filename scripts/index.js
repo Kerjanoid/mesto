@@ -6,10 +6,7 @@ const popupViewPic = document.querySelector('.popup_view-picture');
 const closeButtons = document.querySelectorAll('.popup__close-button');
 const formProfElement = document.querySelector('.popup__form_edit-profile');
 const formPicElement = document.querySelector('.popup__form_new-picture');
-const profileTitel = document.querySelector('.profile__title');
-const profileSubtitle = document.querySelector('.profile__subtitle');
-const inputFieldTitel = document.querySelector('.popup__input-field_type_titel');
-const inputFieldSubtitel = document.querySelector('.popup__input-field_type_subtitel');
+constpup__input-field_type_subtitel');
 const inputFieldPicTitel = document.querySelector('.popup__input-field_type_pic-titel');
 const inputFieldPicLink = document.querySelector('.popup__input-field_type_pic-link');
 const picElements = document.querySelectorAll('.element__img');
@@ -50,18 +47,7 @@ function changeProfile(event) {
   closePopup();
 }
 
-formProfElement.addEventListener('submit', changeProfile);
-
-
-// Карточки "из коробки"
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+formProfElement.adeloper/cards-compressed/chelyabinsk-oblast.jpg'
   },
   {
     name: 'Иваново',
