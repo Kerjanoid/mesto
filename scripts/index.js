@@ -18,6 +18,7 @@ const addPicture = document.querySelector('.profile__add-button');
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', keyHandler);
+  clickCloser();
 }
 
 editProfile.addEventListener('click', () => {
@@ -151,10 +152,22 @@ function openPic(picture) {
 }
 
 // Функция закрытия на ESC
-function keyHandler(evt) {
+function keyHandler(event) {
   const openedPopup = document.querySelector('.popup_opened');
-  if (evt.key === 'Escape') {
+  if (event.key === 'Escape') {
     openedPopup.classList.remove('popup_opened');
     document.removeEventListener('keydown', keyHandler);
   }
 }
+
+
+// Функция закрытия попапа при клике вне формы
+function clickCloser() {
+  const openedPopup = document.querySelector('.popup_opened');
+  openedPopup.addEventListener('click', closePopup);
+  openedPopup.querySelector('.stop-propagation').addEventListener('click', function(event) {
+    event.stopPropagation();
+  });
+}
+
+
