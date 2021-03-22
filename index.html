@@ -34,33 +34,46 @@
   </footer>
 
   <div class="popup popup_edit-profile">
-    <div class="popup__content">
+    <div class="popup__content stop-propagation">
       <button type="button" class="popup__close-button" aria-label="закрыть"><img class="popup__close-button-img" src="images/Close_Icon.svg" alt="закрыть"></button>
-      <form class="popup__form popup__form_edit-profile" name="edit-form">
+      <form class="popup__form popup__form_edit-profile" name="edit-form" novalidate>
         <h2 class="popup__titel">Редактировать профиль</h2>
-        <input class="popup__input-field popup__input-field_type_titel" required placeholder="Введите имя" type="text" value="" name="titel">
-        <input class="popup__input-field popup__input-field_type_subtitel" required placeholder="Введите профессию" type="text" value="" name="subtitel">
+        <label class="popup__form-field">
+          <input class="popup__input-field popup__input-field_type_titel" required placeholder="Введите имя" type="text" value="" name="profile-titel" minlength="2" maxlength="40">
+          <span class="popup__error" id="profile-titel-error"></span>
+        </label>
+        <label class="popup__form-field">
+          <input class="popup__input-field popup__input-field_type_subtitel" required placeholder="Введите профессию" type="text" value="" name="profile-subtitel" minlength="2" maxlength="200">
+          <span class="popup__error" id="profile-subtitel-error"></span>
+        </label>
         <button class="popup__save-button" type="submit" aria-label="сохранить">Сохранить</button>
       </form>
     </div>
   </div>
 
   <div class="popup popup_new-picture">
-    <div class="popup__content">
+    <div class="popup__content stop-propagation">
       <button type="button" class="popup__close-button" aria-label="закрыть"><img class="popup__close-button-img" src="images/Close_Icon.svg" alt="закрыть"></button>
-      <form class="popup__form popup__form_new-picture" name="edit-form">
+      <form class="popup__form popup__form_new-picture" name="edit-form" novalidate>
         <h2 class="popup__titel">Новое место</h2>
-        <input class="popup__input-field popup__input-field_type_pic-titel" required placeholder="Название" type="text" value="" name="titel">
-        <input class="popup__input-field popup__input-field_type_pic-link" required placeholder="Ссылка на картинку" type="url" value="" name="picture">
+        <label class="popup__form-field">
+          <input class="popup__input-field popup__input-field_type_pic-titel" required placeholder="Название" type="text" value="" name="picture-titel"  minlength="2" maxlength="40">
+          <span class="popup__error" id="picture-titel-error"></span>
+        </label>
+        <label class="popup__form-field">
+          <input class="popup__input-field popup__input-field_type_pic-link" required placeholder="Ссылка на картинку" type="url" value="" name="picture-url">
+          <span class="popup__error" id="picture-url-error"></span>
+        </label>
         <button class="popup__save-button" type="submit" aria-label="сохранить">Создать</button>
       </form>
     </div>
   </div>
 
   <div class="popup popup_view-picture">
-    <figure class="popup__view-window">
+    <figure class="popup__view-window stop-propagation">
       <button type="button" class="popup__close-button" aria-label="закрыть"><img class="popup__close-button-img" src="images/Close_Icon.svg" alt="закрыть"></button>
-      <img class="popup__huge-picture" src="images/placeholder.jpg" alt=" ">
+      <img class="popup__huge-picture" src="images/plus.svg" alt=" ">
+
       <figcaption class="popup__figcaption"></figcaption>
     </figure>
   </div>
@@ -77,6 +90,7 @@
   </template>
 
   <script src="scripts/index.js"></script>
+  <script src="scripts/validate.js"></script>
 </body>
 </html>
 
