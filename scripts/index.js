@@ -1,5 +1,4 @@
 const editProfile = document.querySelector('.profile__edit-button');
-const popup = document.querySelector('.popup');
 const popupProfile = document.querySelector('.popup_edit-profile');
 const popupNewPic = document.querySelector('.popup_new-picture');
 const popupViewPic = document.querySelector('.popup_view-picture');
@@ -14,34 +13,41 @@ const inputFieldPicTitel = document.querySelector('.popup__input-field_type_pic-
 const inputFieldPicLink = document.querySelector('.popup__input-field_type_pic-link');
 const picsElement = document.querySelectorAll('.element__img');
 const addPicture = document.querySelector('.profile__add-button');
+const hugePic = document.querySelector('.popup__huge-picture');
+const hugePicFigcap = document.querySelector('.popup__figcaption');
 
 function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', keyHandler);
-  clickCloser();
+  clickCloserEnable();
+  inputFieldTitel.value = profileTitel.textContent;
+  inputFieldSubtitel.value = profileSubtitle.textContent;
+  inputFieldPicTitel.value ='';
+  inputFieldPicLink.value ='';
+  errorRemover();
 }
 
 editProfile.addEventListener('click', () => {
   openPopup(popupProfile);
+  setEventListeners(popupProfile, validationConfig);
 })
 
 addPicture.addEventListener('click', () => {
   openPopup(popupNewPic);
+  setEventListeners(popupNewPic, validationConfig);
 })
 
 function closePopup(event) {
-  const theTarget = event.target;
-  const thePopup = theTarget.closest('.popup');
-  thePopup.classList.remove('popup_opened');
+  const target = event.target;
+  const popup = target.closest('.popup');
+  clickCloserDisable();
+  popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', keyHandler);
 }
 
 closeButton.forEach((button) => button.addEventListener('click', closePopup));
 
-// Сохранение изменений в профиле
-  inputFieldTitel.value = profileTitel.textContent;
-  inputFieldSubtitel.value = profileSubtitle.textContent;
-
+// Внесение изменений в профиле
 function changeProfile(event) {
   event.preventDefault();
   profileTitel.textContent = inputFieldTitel.value;
@@ -50,35 +56,6 @@ function changeProfile(event) {
 }
 
 formProfElement.addEventListener('submit', changeProfile);
-
-
-// Карточки "из коробки"
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
 // Работа с Template
 const container = document.querySelector('.elements');
@@ -114,8 +91,8 @@ renderList()
 
 // Удаление карточки
 function deleteCard(event) {
-	const theTarget = event.target;
-	const currentCard = theTarget.closest('.element');
+	const target = event.target;
+	const currentCard = target.closest('.element');
 	currentCard.remove();
 }
 
@@ -126,8 +103,6 @@ function addCard (event) {
   const card = createDomNode({name: inputFieldPicTitel.value, link: inputFieldPicLink.value});
   container.prepend(card);
   closePopup(event);
-  inputFieldPicTitel.value ='';
-  inputFieldPicLink.value ='';
 }
 
 formPicElement.addEventListener('submit', addCard);
@@ -141,12 +116,9 @@ function toggleLike(event) {
 // Попап картинки
 function openPic(picture) {
   picture.addEventListener('click', () => {
-  const hugePic = document.querySelector('.popup__huge-picture');
-  const hugePicFigcap = document.querySelector('.popup__figcaption');
   hugePic.alt = picture.alt;
   hugePicFigcap.textContent = picture.alt;
   hugePic.src = picture.src;
-	popupViewPic.classList.add('popup_opened');
   openPopup(popupViewPic);
 });
 }
@@ -155,19 +127,38 @@ function openPic(picture) {
 function keyHandler(event) {
   const openedPopup = document.querySelector('.popup_opened');
   if (event.key === 'Escape') {
+    clickCloserDisable();
     openedPopup.classList.remove('popup_opened');
     document.removeEventListener('keydown', keyHandler);
   }
 }
 
 
-// Функция закрытия попапа при клике вне формы
-function clickCloser() {
+// Функция закрытия попапа при клике вне формы + listener
+function clickCloserEnable() {
   const openedPopup = document.querySelector('.popup_opened');
   openedPopup.addEventListener('click', closePopup);
   openedPopup.querySelector('.stop-propagation').addEventListener('click', function(event) {
     event.stopPropagation();
   });
+}
+
+// Функция отключения listener clickCloser
+function clickCloserDisable() {
+  const openedPopup = document.querySelector('.popup_opened');
+  openedPopup.removeEventListener('click', closePopup);
+}
+
+// Функция удаления span под полями ввода и подчеркивания полей ввода при ошибках валидации
+function errorRemover() {
+  const spanErrorList = Array.from(document.querySelectorAll('.popup__error'));
+  spanErrorList.forEach((error) => {
+    error.classList.remove('popup__error_visible')
+    });
+  const errorList = Array.from(document.querySelectorAll('.popup__input-field'));
+  errorList.forEach((error) => {
+    error.classList.remove('popup__input-field_type_error')
+    });
 }
 
 
