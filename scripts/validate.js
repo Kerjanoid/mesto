@@ -2,6 +2,7 @@ const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input-field',
   submitButtonSelector: '.popup__save-button',
+  errorSpan: '.popup__error',
   inactiveButtonClass: 'popup__save-button_disabled',
   inputErrorClass: 'popup__input-field_type_error',
   errorClass: 'popup__error_visible'
@@ -73,10 +74,24 @@ const hasInvalidInput = (inputList) => {
 //Объявляем функцию toggleButtonState - изменение состояния кнопки
 const toggleButtonState = (inputList, buttonElement, validationConfig) => {
   if (hasInvalidInput(inputList)) {
+    buttonElement.setAttribute('disabled', true);
     buttonElement.classList.add(validationConfig.inactiveButtonClass);
   } else {
+    buttonElement.removeAttribute('disabled');
     buttonElement.classList.remove(validationConfig.inactiveButtonClass);
   }
 };
+
+// Функция удаления span под полями ввода и подчеркивания полей ввода при ошибках валидации
+function removeValidationErrors(validationConfig) {
+  const spanErrorList = Array.from(document.querySelectorAll(validationConfig.errorSpan));
+  spanErrorList.forEach((error) => {
+    error.classList.remove(validationConfig.errorClass)
+  });
+  const errorList = Array.from(document.querySelectorAll(validationConfig.inputSelector));
+  errorList.forEach((error) => {
+    error.classList.remove(validationConfig.inputErrorClass)
+  });
+}
 
 enableValidation(validationConfig);

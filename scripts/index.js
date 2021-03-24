@@ -5,7 +5,7 @@ const popupViewPic = document.querySelector('.popup_view-picture');
 const closeButton = document.querySelectorAll('.popup__close-button');
 const formProfElement = document.querySelector('.popup__form_edit-profile');
 const formPicElement = document.querySelector('.popup__form_new-picture');
-const profileTitel = document.querySelector('.profile__title');
+const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 const inputFieldTitel = document.querySelector('.popup__input-field_type_titel');
 const inputFieldSubtitel = document.querySelector('.popup__input-field_type_subtitel');
@@ -20,28 +20,38 @@ function openPopup(popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', keyHandler);
   clickCloserEnable();
-  inputFieldTitel.value = profileTitel.textContent;
-  inputFieldSubtitel.value = profileSubtitle.textContent;
-  inputFieldPicTitel.value ='';
-  inputFieldPicLink.value ='';
-  errorRemover();
 }
 
+// Функция заполнения полей ввода значениями со страницы
+function inputValue() {
+  inputFieldTitel.value = profileTitle.textContent;
+  inputFieldSubtitel.value = profileSubtitle.textContent;
+}
+
+// Функция очистки полей ввода
+// function inputEmply() {
+//   inputFieldPicTitel.value ='';
+//   inputFieldPicLink.value ='';
+// }
+
 editProfile.addEventListener('click', () => {
+  removeValidationErrors(validationConfig);
+  inputValue();
   openPopup(popupProfile);
   setEventListeners(popupProfile, validationConfig);
 })
 
 addPicture.addEventListener('click', () => {
+  removeValidationErrors(validationConfig);
+  formPicElement.reset();
   openPopup(popupNewPic);
   setEventListeners(popupNewPic, validationConfig);
 })
 
-function closePopup(event) {
-  const target = event.target;
-  const popup = target.closest('.popup');
+function closePopup() {
+  const openedPopup = document.querySelector('.popup_opened');
   clickCloserDisable();
-  popup.classList.remove('popup_opened');
+  openedPopup.classList.remove('popup_opened');
   document.removeEventListener('keydown', keyHandler);
 }
 
@@ -50,7 +60,7 @@ closeButton.forEach((button) => button.addEventListener('click', closePopup));
 // Внесение изменений в профиле
 function changeProfile(event) {
   event.preventDefault();
-  profileTitel.textContent = inputFieldTitel.value;
+  profileTitle.textContent = inputFieldTitel.value;
   profileSubtitle.textContent = inputFieldSubtitel.value;
   closePopup(event);
 }
@@ -81,7 +91,6 @@ function createDomNode(item) {
 function renderList() {
 	const result = initialCards.map(function(item) {
 		const newCard = createDomNode(item);
-
 		return newCard;
 	});
 	container.append(...result);
@@ -95,7 +104,6 @@ function deleteCard(event) {
 	const currentCard = target.closest('.element');
 	currentCard.remove();
 }
-
 
 // Добавление карточек
 function addCard (event) {
@@ -116,23 +124,19 @@ function toggleLike(event) {
 // Попап картинки
 function openPic(picture) {
   picture.addEventListener('click', () => {
-  hugePic.alt = picture.alt;
-  hugePicFigcap.textContent = picture.alt;
-  hugePic.src = picture.src;
-  openPopup(popupViewPic);
-});
+    hugePic.alt = picture.alt;
+    hugePicFigcap.textContent = picture.alt;
+    hugePic.src = picture.src;
+    openPopup(popupViewPic);
+  });
 }
 
 // Функция закрытия на ESC
 function keyHandler(event) {
-  const openedPopup = document.querySelector('.popup_opened');
   if (event.key === 'Escape') {
-    clickCloserDisable();
-    openedPopup.classList.remove('popup_opened');
-    document.removeEventListener('keydown', keyHandler);
+    closePopup();
   }
 }
-
 
 // Функция закрытия попапа при клике вне формы + listener
 function clickCloserEnable() {
@@ -148,17 +152,4 @@ function clickCloserDisable() {
   const openedPopup = document.querySelector('.popup_opened');
   openedPopup.removeEventListener('click', closePopup);
 }
-
-// Функция удаления span под полями ввода и подчеркивания полей ввода при ошибках валидации
-function errorRemover() {
-  const spanErrorList = Array.from(document.querySelectorAll('.popup__error'));
-  spanErrorList.forEach((error) => {
-    error.classList.remove('popup__error_visible')
-    });
-  const errorList = Array.from(document.querySelectorAll('.popup__input-field'));
-  errorList.forEach((error) => {
-    error.classList.remove('popup__input-field_type_error')
-    });
-}
-
 
