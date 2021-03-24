@@ -28,12 +28,6 @@ function inputValue() {
   inputFieldSubtitel.value = profileSubtitle.textContent;
 }
 
-// Функция очистки полей ввода
-// function inputEmply() {
-//   inputFieldPicTitel.value ='';
-//   inputFieldPicLink.value ='';
-// }
-
 editProfile.addEventListener('click', () => {
   removeValidationErrors(validationConfig);
   inputValue();
