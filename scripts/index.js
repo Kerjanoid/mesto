@@ -2,13 +2,13 @@ const editProfile = document.querySelector('.profile__edit-button');
 const popupProfile = document.querySelector('.popup_edit-profile');
 const popupNewPic = document.querySelector('.popup_new-picture');
 const popupViewPic = document.querySelector('.popup_view-picture');
-const closeButton = document.querySelectorAll('.popup__close-button');
+const closeButtonList = document.querySelectorAll('.popup__close-button');
 const formProfElement = document.querySelector('.popup__form_edit-profile');
 const formPicElement = document.querySelector('.popup__form_new-picture');
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
-const inputFieldTitel = document.querySelector('.popup__input-field_type_titel');
-const inputFieldSubtitel = document.querySelector('.popup__input-field_type_subtitel');
+const userNameInput = document.querySelector('.popup__input-field_type_titel');
+const userProfessionInput = document.querySelector('.popup__input-field_type_subtitel');
 const inputFieldPicTitel = document.querySelector('.popup__input-field_type_pic-titel');
 const inputFieldPicLink = document.querySelector('.popup__input-field_type_pic-link');
 const picsElement = document.querySelectorAll('.element__img');
@@ -23,14 +23,14 @@ function openPopup(popup) {
 }
 
 // Функция заполнения полей ввода значениями со страницы
-function inputValue() {
-  inputFieldTitel.value = profileTitle.textContent;
-  inputFieldSubtitel.value = profileSubtitle.textContent;
+function fillEditProfileFields() {
+  userNameInput.value = profileTitle.textContent;
+  userProfessionInput.value = profileSubtitle.textContent;
 }
 
 editProfile.addEventListener('click', () => {
   removeValidationErrors(validationConfig);
-  inputValue();
+  fillEditProfileFields();
   openPopup(popupProfile);
   setEventListeners(popupProfile, validationConfig);
 })
@@ -42,21 +42,25 @@ addPicture.addEventListener('click', () => {
   setEventListeners(popupNewPic, validationConfig);
 })
 
-function closePopup() {
-  const openedPopup = document.querySelector('.popup_opened');
+function closePopup(popup) {
   clickCloserDisable();
-  openedPopup.classList.remove('popup_opened');
+  popup.classList.remove('popup_opened');
   document.removeEventListener('keydown', keyHandler);
 }
 
-closeButton.forEach((button) => button.addEventListener('click', closePopup));
+// Закрытие попапа по крестику
+closeButtonList.forEach((button) => button.addEventListener('click', (event) => {
+  const target = event.target;
+  const openedPopup = target.closest('.popup_opened');
+  closePopup(openedPopup);
+}))
 
 // Внесение изменений в профиле
 function changeProfile(event) {
   event.preventDefault();
-  profileTitle.textContent = inputFieldTitel.value;
-  profileSubtitle.textContent = inputFieldSubtitel.value;
-  closePopup(event);
+  profileTitle.textContent = userNameInput.value;
+  profileSubtitle.textContent = userProfessionInput.value;
+  closePopup(popupProfile);
 }
 
 formProfElement.addEventListener('submit', changeProfile);
@@ -104,7 +108,7 @@ function addCard (event) {
   event.preventDefault();
   const card = createDomNode({name: inputFieldPicTitel.value, link: inputFieldPicLink.value});
   container.prepend(card);
-  closePopup(event);
+  closePopup(popupNewPic);
 }
 
 formPicElement.addEventListener('submit', addCard);
@@ -126,16 +130,17 @@ function openPic(picture) {
 }
 
 // Функция закрытия на ESC
-function keyHandler(event) {
+const keyHandler = (event) => {
+  const openedPopup = document.querySelector('.popup_opened');
   if (event.key === 'Escape') {
-    closePopup();
+    closePopup(openedPopup);
   }
 }
 
 // Функция закрытия попапа при клике вне формы + listener
 function clickCloserEnable() {
   const openedPopup = document.querySelector('.popup_opened');
-  openedPopup.addEventListener('click', closePopup);
+  openedPopup.addEventListener('click', () => closePopup(openedPopup));
   openedPopup.querySelector('.stop-propagation').addEventListener('click', function(event) {
     event.stopPropagation();
   });
@@ -144,6 +149,6 @@ function clickCloserEnable() {
 // Функция отключения listener clickCloser
 function clickCloserDisable() {
   const openedPopup = document.querySelector('.popup_opened');
-  openedPopup.removeEventListener('click', closePopup);
+  document.removeEventListener('click', () => closePopup(openedPopup));
 }
 
