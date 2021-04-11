@@ -1,7 +1,7 @@
 export class FormValidator {
-  constructor(validationConfig, forms) {
+  constructor(validationConfig, form) {
     this._validationConfig = validationConfig
-    this._forms = forms
+    this._form = form
   }
 
   _checkInputValidity(inputElement) {
@@ -14,7 +14,7 @@ export class FormValidator {
 
   _showInputError(inputElement, errorMessage) {
     const inputName = inputElement.getAttribute('name');
-    const errorElement = this._forms.querySelector(`#${inputName}-error`);
+    const errorElement = this._form.querySelector(`#${inputName}-error`);
     inputElement.classList.add(this._validationConfig.inputErrorClass);
     errorElement.textContent = errorMessage;
     errorElement.classList.add(this._validationConfig.errorClass);
@@ -22,15 +22,15 @@ export class FormValidator {
 
   _hideInputError(inputElement) {
     const inputName = inputElement.getAttribute('name');
-    const errorElement = this._forms.querySelector(`#${inputName}-error`)
+    const errorElement = this._form.querySelector(`#${inputName}-error`)
     inputElement.classList.remove(this._validationConfig.inputErrorClass)
     errorElement.classList.remove(this._validationConfig.errorClass)
     errorElement.textContent = ''
   }
 
   _setEventListeners() {
-    const inputList = Array.from(this._forms.querySelectorAll(this._validationConfig.inputSelector))
-    const buttonElement = this._forms.querySelector(this._validationConfig.submitButtonSelector)
+    const inputList = Array.from(this._form.querySelectorAll(this._validationConfig.inputSelector))
+    const buttonElement = this._form.querySelector(this._validationConfig.submitButtonSelector)
     this._toggleButtonState(inputList, buttonElement)
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
@@ -41,16 +41,6 @@ export class FormValidator {
   }
 
   enableValidation() {
-    const formList = Array.from(this._forms.querySelectorAll(this._validationConfig.formSelector))
-    formList.forEach((formElement) => {
-      formElement.addEventListener('submit', function (evt) {
-        evt.preventDefault()
-      })
-
-      formList.forEach((formElement) => {
-        setEventListeners(formElement)
-      })
-    })
     this._setEventListeners()
   }
 
@@ -71,11 +61,11 @@ export class FormValidator {
   };
 
   removeValidationErrors() {
-    const spanErrorList = Array.from(this._forms.querySelectorAll(this._validationConfig.errorSpan));
+    const spanErrorList = Array.from(this._form.querySelectorAll(this._validationConfig.errorSpan));
     spanErrorList.forEach((error) => {
       error.classList.remove(this._validationConfig.errorClass)
     })
-    const errorList = Array.from(this._forms.querySelectorAll(this._validationConfig.inputSelector));
+    const errorList = Array.from(this._form.querySelectorAll(this._validationConfig.inputSelector));
     errorList.forEach((error) => {
       error.classList.remove(this._validationConfig.inputErrorClass)
     })

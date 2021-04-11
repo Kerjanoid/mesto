@@ -7,7 +7,8 @@ const templateElement = '.template';
 const editProfile = document.querySelector('.profile__edit-button')
 const popupProfile = document.querySelector('.popup_edit-profile')
 const popupNewPic = document.querySelector('.popup_new-picture')
-const closeButtonList = document.querySelectorAll('.popup__close-button')
+//const popupFormList = document.querySelectorAll('.popup__form')
+//const closeButtonList = document.querySelectorAll('.popup__close-button')
 const formProfElement = document.querySelector('.popup__form_edit-profile')
 const formPicElement = document.querySelector('.popup__form_new-picture')
 const profileTitle = document.querySelector('.profile__title');
@@ -17,7 +18,7 @@ const userProfessionInput = document.querySelector('.popup__input-field_type_sub
 const inputFieldPicTitel = document.querySelector('.popup__input-field_type_pic-titel')
 const inputFieldPicLink = document.querySelector('.popup__input-field_type_pic-link')
 const addPicture = document.querySelector('.profile__add-button')
-
+const popupList = document.querySelectorAll('.popup')
 
 const validationConfig = {
   formSelector: '.popup__form',
@@ -32,44 +33,55 @@ const validationConfig = {
 const editProfileFormValidator = new FormValidator(validationConfig, formProfElement);
 const addPicFormValidator = new FormValidator(validationConfig, formPicElement);
 
+addPicFormValidator.enableValidation()
+editProfileFormValidator.enableValidation()
+
+//Функция деактивации кнопки "сохранить" в попапе
+function disableSubmitButton() {
+  const submitButtonList = document.querySelectorAll('.popup__save-button')
+  submitButtonList.forEach((button) => {
+    button.classList.add(validationConfig.inactiveButtonClass)
+    button.setAttribute('disabled', true)
+  })
+}
+
 function openPopup(popup) {
   popup.classList.add('popup_opened')
   document.addEventListener('keydown', keyHandler)
-  clickCloserEnable()
+  disableSubmitButton()
 }
 
 // Функция заполнения полей ввода значениями со страницы
 function fillEditProfileFields() {
-  userNameInput.value = profileTitle.textContent;
-  userProfessionInput.value = profileSubtitle.textContent;
+  userNameInput.value = profileTitle.textContent
+  userProfessionInput.value = profileSubtitle.textContent
 }
 
 editProfile.addEventListener('click', () => {
   fillEditProfileFields()
-  editProfileFormValidator.enableValidation()
   editProfileFormValidator.removeValidationErrors()
   openPopup(popupProfile)
 })
 
 addPicture.addEventListener('click', () => {
-  addPicFormValidator.enableValidation()
   addPicFormValidator.removeValidationErrors()
   formPicElement.reset()
   openPopup(popupNewPic)
 })
 
 function closePopup(popup) {
-  clickCloserDisable();
-  popup.classList.remove('popup_opened');
+  popup.classList.remove('popup_opened')
   document.removeEventListener('keydown', keyHandler);
 }
 
-//Закрытие попапа по крестику
-closeButtonList.forEach((button) => button.addEventListener('click', (event) => {
-  const target = event.target
-  const openedPopup = target.closest('.popup_opened')
-  closePopup(openedPopup)
-}))
+//Закрытие попапа по крестику и клику по "оверлею"
+popupList.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+    if (evt.target.classList.contains('popup_opened') || evt.target.classList.contains('popup__close-button-img')) {
+      closePopup(popup)
+    }
+  })
+})
 
 //Внесение изменений в профиле
 function changeProfile(event) {
@@ -110,19 +122,4 @@ const keyHandler = (event) => {
   if (event.key === 'Escape') {
     closePopup(openedPopup);
   }
-}
-
-//Функция закрытия попапа при клике вне формы + listener
-function clickCloserEnable() {
-  const openedPopup = document.querySelector('.popup_opened');
-  openedPopup.addEventListener('click', () => closePopup(openedPopup));
-  openedPopup.querySelector('.stop-propagation').addEventListener('click', function(event) {
-    event.stopPropagation();
-  });
-}
-
-//Функция отключения listener clickCloser
-function clickCloserDisable() {
-  const openedPopup = document.querySelector('.popup_opened');
-  document.removeEventListener('click', () => closePopup(openedPopup));
 }
