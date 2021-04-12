@@ -3,16 +3,14 @@ import {FormValidator} from './FormValidator.js'
 import {initialCards} from './initial-cards.js'
 
 const container = document.querySelector('.elements')
-const templateElement = '.template';
+const templateElement = '.template'
 const editProfile = document.querySelector('.profile__edit-button')
 const popupProfile = document.querySelector('.popup_edit-profile')
 const popupNewPic = document.querySelector('.popup_new-picture')
-//const popupFormList = document.querySelectorAll('.popup__form')
-//const closeButtonList = document.querySelectorAll('.popup__close-button')
 const formProfElement = document.querySelector('.popup__form_edit-profile')
 const formPicElement = document.querySelector('.popup__form_new-picture')
-const profileTitle = document.querySelector('.profile__title');
-const profileSubtitle = document.querySelector('.profile__subtitle');
+const profileTitle = document.querySelector('.profile__title')
+const profileSubtitle = document.querySelector('.profile__subtitle')
 const userNameInput = document.querySelector('.popup__input-field_type_titel')
 const userProfessionInput = document.querySelector('.popup__input-field_type_subtitel')
 const inputFieldPicTitel = document.querySelector('.popup__input-field_type_pic-titel')
@@ -30,25 +28,15 @@ const validationConfig = {
   errorClass: 'popup__error_visible'
 }
 
-const editProfileFormValidator = new FormValidator(validationConfig, formProfElement);
-const addPicFormValidator = new FormValidator(validationConfig, formPicElement);
+const editProfileFormValidator = new FormValidator(validationConfig, formProfElement)
+const addPicFormValidator = new FormValidator(validationConfig, formPicElement)
 
 addPicFormValidator.enableValidation()
 editProfileFormValidator.enableValidation()
 
-//Функция деактивации кнопки "сохранить" в попапе
-function disableSubmitButton() {
-  const submitButtonList = document.querySelectorAll('.popup__save-button')
-  submitButtonList.forEach((button) => {
-    button.classList.add(validationConfig.inactiveButtonClass)
-    button.setAttribute('disabled', true)
-  })
-}
-
 function openPopup(popup) {
   popup.classList.add('popup_opened')
   document.addEventListener('keydown', keyHandler)
-  disableSubmitButton()
 }
 
 // Функция заполнения полей ввода значениями со страницы
@@ -64,14 +52,14 @@ editProfile.addEventListener('click', () => {
 })
 
 addPicture.addEventListener('click', () => {
-  addPicFormValidator.removeValidationErrors()
   formPicElement.reset()
+  addPicFormValidator.removeValidationErrors()
   openPopup(popupNewPic)
 })
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened')
-  document.removeEventListener('keydown', keyHandler);
+  document.removeEventListener('keydown', keyHandler)
 }
 
 //Закрытие попапа по крестику и клику по "оверлею"
@@ -97,7 +85,7 @@ formProfElement.addEventListener('submit', changeProfile)
 initialCards.forEach((data) => {
   const newCard = createCard(data)
   container.append(newCard)
-});
+})
 
 //Функция создания карточек
 function createCard(data) {
@@ -118,8 +106,8 @@ formPicElement.addEventListener('submit', addCard)
 
 //Функция закрытия на ESC
 const keyHandler = (event) => {
-  const openedPopup = document.querySelector('.popup_opened');
+  const openedPopup = document.querySelector('.popup_opened')
   if (event.key === 'Escape') {
-    closePopup(openedPopup);
+    closePopup(openedPopup)
   }
 }
