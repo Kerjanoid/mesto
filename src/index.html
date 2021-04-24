@@ -2,7 +2,6 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="pages/index.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
 </head>
@@ -14,14 +13,14 @@
   <main class="content">
     <section class="profile">
       <div class="profile__data">
-        <img class="avatar" src="images/JYCousteau.jpg" alt="Жак-Ив Кусто">
+        <img class="avatar" src="<%=require("./images/JYCousteau.jpg")%>" alt="Жак-Ив Кусто">
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button" aria-label="редактировать" type="button"><img class="profile__edit-button-img" src="images/Edit_button.svg" alt="редактирование профиля"></button>
+          <button class="profile__edit-button" aria-label="редактировать" type="button"><img class="profile__edit-button-img" src="<%=require("./images/Edit_button.svg")%>" alt="редактирование профиля"></button>
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
       </div>
-        <button type="button" class="profile__add-button" aria-label="добавить"><img class="profile__add-button-img" src="images/plus.svg" alt="добавление контента"></button>
+        <button type="button" class="profile__add-button" aria-label="добавить"><img class="profile__add-button-img" src="<%=require("./images/plus.svg")%>" alt="добавление контента"></button>
     </section>
 
     <section class="elements">
@@ -35,7 +34,7 @@
 
   <div class="popup popup_edit-profile">
     <div class="popup__content">
-      <button type="button" class="popup__close-button" aria-label="закрыть"><img class="popup__close-button-img" src="images/Close_Icon.svg" alt="закрыть"></button>
+      <button type="button" class="popup__close-button" aria-label="закрыть"><img class="popup__close-button-img" src="<%=require("./images/Close_Icon.svg")%>" alt="закрыть"></button>
       <form class="popup__form popup__form_edit-profile" name="edit-form" novalidate>
         <h2 class="popup__titel">Редактировать профиль</h2>
         <label class="popup__form-field">
@@ -53,7 +52,7 @@
 
   <div class="popup popup_new-picture">
     <div class="popup__content">
-      <button type="button" class="popup__close-button" aria-label="закрыть"><img class="popup__close-button-img" src="images/Close_Icon.svg" alt="закрыть"></button>
+      <button type="button" class="popup__close-button" aria-label="закрыть"><img class="popup__close-button-img" src="<%=require("./images/Close_Icon.svg")%>" alt="закрыть"></button>
       <form class="popup__form popup__form_new-picture" name="edit-form" novalidate>
         <h2 class="popup__titel">Новое место</h2>
         <label class="popup__form-field">
@@ -71,8 +70,8 @@
 
   <div class="popup popup_view-picture">
     <figure class="popup__view-window">
-      <button type="button" class="popup__close-button" aria-label="закрыть"><img class="popup__close-button-img" src="images/Close_Icon.svg" alt="закрыть"></button>
-      <img class="popup__huge-picture" src="images/plus.svg" alt=" ">
+      <button type="button" class="popup__close-button" aria-label="закрыть"><img class="popup__close-button-img" src="<%=require("./images/Close_Icon.svg")%>" alt="закрыть"></button>
+      <img class="popup__huge-picture" src="<%=require("./images/plus.svg")%>" alt=" ">
       <figcaption class="popup__figcaption"></figcaption>
     </figure>
   </div>
@@ -88,8 +87,6 @@
     </article>
   </template>
 
-  <script type="module" src="scripts/initial-cards.js"></script>
-  <script type="module" src="scripts/index.js"></script>
 </body>
 </html>
 

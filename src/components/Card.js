@@ -1,13 +1,13 @@
-const popupViewPic = document.querySelector('.popup_view-picture')
+/*const popupViewPic = document.querySelector('.popup_view-picture')
 const hugePic = document.querySelector('.popup__huge-picture')
-const hugePicFigcap = document.querySelector('.popup__figcaption')
+const hugePicFigcap = document.querySelector('.popup__figcaption')*/
 
-export class Card {
-	constructor(data, cardSelector, openPopup) {
+export default class Card {
+	constructor(data, cardSelector, handleCardClick) {
     this._name = data.name
     this._link = data.link
     this._cardSelector = cardSelector
-    this._openPopup = openPopup
+    this._handleCardClick = handleCardClick
 	}
 
   _getTemplate() {
@@ -43,11 +43,6 @@ export class Card {
       this._deleteButton.closest('.element').remove()
     })
 
-    this._element.querySelector('.element__img').addEventListener('click', () => {
-      hugePic.alt = this._name
-      hugePicFigcap.textContent = this._name
-      hugePic.src = this._link
-      this._openPopup(popupViewPic)
-    })
+    this._element.querySelector('.element__img').addEventListener('click', () => this._handleCardClick(this._name, this._link))
   }
 }
