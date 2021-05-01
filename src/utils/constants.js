@@ -17,9 +17,9 @@ export const addPicture = document.querySelector('.profile__add-button')
 export const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input-field',
-  submitButtonSelector: '.popup__save-button',
+  submitButtonSelector: '.popup__submit-button',
   errorSpan: '.popup__error',
-  inactiveButtonClass: 'popup__save-button_disabled',
+  inactiveButtonClass: 'popup__submit-button_disabled',
   inputErrorClass: 'popup__input-field_type_error',
   errorClass: 'popup__error_visible'
 }

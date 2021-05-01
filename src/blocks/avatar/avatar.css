@@ -1,7 +1,12 @@
 .avatar {
   display: flex;
+  justify-content: center;
+  align-items: center;
   width: 120px;
   height: 120px;
-  object-fit: cover;
   border-radius: 50%;
+  cursor: pointer;
+  background-image: url(../../images/JYCousteau.jpg);
+  background-position: center;
+  background-size: cover;
 }
