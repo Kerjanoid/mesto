@@ -12,9 +12,9 @@ export default class UserInfo {
 		}
 	}
 
-	setUserInfo(data) {
-		this._userName.textContent = data['profile-titel']
-		this._userProfession.textContent = data['profile-subtitel']
+	setUserInfo(userName, userProfession) {
+		this._userName.textContent = userName
+		this._userProfession.textContent = userProfession
 	}
 
   setUserAvatar(avatarLink) {

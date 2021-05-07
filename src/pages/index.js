@@ -31,7 +31,7 @@ const userInfo = new UserInfo(nameSelector, subtitleSelector, avatarSelector)
 editProfile.addEventListener('click', () => {
   const profileData = userInfo.getUserInfo()
   userNameInput.value = profileData.userName
-  userProfessionInput.value = profileData.userDescription
+  userProfessionInput.value = profileData.userProfession
   editProfileFormValidator.removeValidationErrors()
   popupEditProfile.open()
 })
@@ -94,13 +94,13 @@ const deleteCardCallback = (cardData, card, evt) => {
 }
 
 function createCardItem(placeData, templateCard, openFullViewPopup, userID, deleteCardCallback, likeCardCallback) {
-  return new Card(placeData, templateCard, openFullViewPopup, userID, deleteCardCallback, likeCardCallback);
+  return new Card(placeData, templateCard, openFullViewPopup, userID, deleteCardCallback, likeCardCallback)
 }
 
-const editProfileFormSubmitHandler = function ({editProfileName, editProfileDescription}) {
+function editProfileFormSubmitHandler ({editProfileName, editProfileDescription}) {
   toggleLoading(popupEditProfile, false)
   api.editProfile(editProfileName, editProfileDescription)
-    .then(answer => {
+    .then((answer) => {
     userInfo.setUserInfo(answer.name, answer.about)
     popupEditProfile.close()
   })
@@ -109,10 +109,10 @@ const editProfileFormSubmitHandler = function ({editProfileName, editProfileDesc
     })
     .finally(() => {
       toggleLoading(popupEditProfile, true);
-    });
+    })
 }
 
-const addCardFormSubmitHandler = function ({editPlaceName, editLinkPlace}) {
+function addCardFormSubmitHandler ({editPlaceName, editLinkPlace}) {
   toggleLoading(popupCardAdd, false);
   api.addCard(editPlaceName, editLinkPlace)
     .then(newPlace => {
@@ -127,8 +127,8 @@ const addCardFormSubmitHandler = function ({editPlaceName, editLinkPlace}) {
     });
 }
 
-const editAvatarFormSubmitHandler = function ({editLinkAvatar}) {
-  toggleLoading(editAvatarPopup, false)
+function editAvatarFormSubmitHandler ({editLinkAvatar}) {
+  toggleLoading(popupEditAvatar, false)
   const editAvatarPromise = api.editAvatar(editLinkAvatar)
   editAvatarPromise
     .then(data => {
@@ -144,20 +144,21 @@ const editAvatarFormSubmitHandler = function ({editLinkAvatar}) {
 }
 
 const renderer = (item, container) => {
-  const card = createCardItem(item, templateElement, popupWithImage.open.bind(popupWithImage), userInfo.getUserId(), deleteCardCallback, likeCardCallback);
-  const cardDomNode = card.createCardDomNode();
-  container.prepend(cardDomNode);
+  const card = createCardItem(item, templateElement, popupWithImage.open.bind(popupWithImage), userInfo.getUserId(), deleteCardCallback, likeCardCallback)
+  const cardDomNode = card.createDomNode()
+  container.prepend(cardDomNode)
 }
 
-const updateUserInformation = function (userName, userDescription, userAvatar, userID) {
-  userInfo.setUserInfo(userName, userDescription)
+function updateUserInformation (userName, userProfession, userAvatar, userID) {
+  userInfo.setUserInfo(userName, userProfession)
   userInfo.setUserId(userID)
   if (userAvatar) {
     userInfo.setUserAvatar(userAvatar)
   }
 }
 
-const section = new Section(renderer, containerSelector);
+const section = new Section(renderer, containerSelector)
+
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-23',
   headers: {

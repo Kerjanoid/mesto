@@ -12,16 +12,8 @@ export default class Card {
     this._likeCardCallback = likeCardCallback
 	}
 
-  _getTemplate() {
-    return cardElement = document
-      .querySelector(this._cardSelector)
-      .content
-      .querySelector('.element')
-      .cloneNode(true)
-  }
-
   createDomNode() {
-    this._element = this._getTemplate()
+    this._element = this._cardSelector.content.cloneNode(true)
     this._cardDescription = this._element.querySelector(this._cardDescriptionSelector)
     this._cardPhoto = this._element.querySelector(this._cardPhotoSelector)
     this._likeCounter = this._element.querySelector(this._likeCounterSelector)
@@ -46,7 +38,7 @@ export default class Card {
   }
 
   _toggleLikeButton = () => {
-    this._likeButtonn.classList.toggle('element__like_active')
+    this._likeButton.classList.toggle('element__like_active')
   }
 
   setLikeCounter (number) {

@@ -1,4 +1,4 @@
-export const templateElement = '.template'
+export const templateElement = document.querySelector('.template')
 export const nameSelector = '.profile__title'
 export const subtitleSelector = '.profile__subtitle'
 export const avatarSelector = '.avatar'
