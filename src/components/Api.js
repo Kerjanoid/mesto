@@ -46,7 +46,7 @@ export default class Api {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: userAvatar['picture-url']
+        avatar: userAvatar['avatar-url']
       })
     })
       .then(this._checkResponse);
