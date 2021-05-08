@@ -6,11 +6,11 @@ import PopupWithImage from '../components/PopupWithImage.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import UserInfo from '../components/UserInfo.js'
 import Api from '../components/Api.js'
-import { container, containerSelector, templateElement, editProfile, editAvatar, formProfElement,
-  formPicElement, formAvatarElement, profileTitle, profileSubtitle, userNameInput,
-  userProfessionInput, addPicture, subtitleSelector, nameSelector, avatarSelector,
-  popupProfileSelector, popupCardSelector, popupImageSelector, popupAvatarSelector,
-  popupDeleteAgreementSelector, validationConfig, initialCards } from '../utils/constants.js'
+import { containerSelector, templateElement, editProfile, editAvatar,
+  formProfElement,formPicElement, formAvatarElement, userNameInput,
+  userProfessionInput, addPicture, subtitleSelector, nameSelector,
+  avatarSelector, popupProfileSelector, popupCardSelector, popupImageSelector,
+  popupAvatarSelector, popupDeleteAgreementSelector, validationConfig } from '../utils/constants.js'
 
 const editProfileFormValidator = new FormValidator(validationConfig, formProfElement)
 const addPicFormValidator = new FormValidator(validationConfig, formPicElement)
@@ -82,7 +82,7 @@ const likeCardCallback = (isLiked, cardData, card) => {
 const deleteCardCallback = (cardData, card, evt) => {
   confirmPopup.setSubmitCallback(() => {
     api.removeCard(cardData._id)
-      .then((data) => {
+      .then(data => {
         card.deleteCard(evt)
         confirmPopup.close()
     })
@@ -97,10 +97,10 @@ function createCardItem(placeData, templateCard, openFullViewPopup, userID, dele
   return new Card(placeData, templateCard, openFullViewPopup, userID, deleteCardCallback, likeCardCallback)
 }
 
-function editProfileFormSubmitHandler ({editProfileName, editProfileDescription}) {
+function editProfileFormSubmitHandler (userData) {
   toggleLoading(popupEditProfile, false)
-  api.editProfile(editProfileName, editProfileDescription)
-    .then((answer) => {
+  api.editProfile(userData)
+    .then(answer => {
     userInfo.setUserInfo(answer.name, answer.about)
     popupEditProfile.close()
   })
@@ -108,26 +108,26 @@ function editProfileFormSubmitHandler ({editProfileName, editProfileDescription}
       console.log(err)
     })
     .finally(() => {
-      toggleLoading(popupEditProfile, true);
+      toggleLoading(popupEditProfile, true)
     })
 }
 
-function addCardFormSubmitHandler ({editPlaceName, editLinkPlace}) {
+function addCardFormSubmitHandler (cardData) {
   toggleLoading(popupCardAdd, false);
-  api.addCard(editPlaceName, editLinkPlace)
+  api.addCard(cardData)
     .then(newPlace => {
-      section.addItem(newPlace);
-      popupCardAdd.close();
+      section.addItem(newPlace)
+      popupCardAdd.close()
     })
     .catch((err) => {
     console.log(err)
   })
     .finally(() => {
       toggleLoading(popupCardAdd, true);
-    });
+    })
 }
 
-function editAvatarFormSubmitHandler ({editLinkAvatar}) {
+function editAvatarFormSubmitHandler (editLinkAvatar) {
   toggleLoading(popupEditAvatar, false)
   const editAvatarPromise = api.editAvatar(editLinkAvatar)
   editAvatarPromise
@@ -178,62 +178,3 @@ Promise.all([
   .catch((err)=>{
     console.log(err)
   })
-
-/*const editProfileFormValidator = new FormValidator(validationConfig, formProfElement)
-const addPicFormValidator = new FormValidator(validationConfig, formPicElement)
-
-addPicFormValidator.enableValidation()
-editProfileFormValidator.enableValidation()
-
-const popupEditProfile = new PopupWithForm(popupProfileSelector, editProfileFormSubmitHandler);
-const popupCardAdd = new PopupWithForm(popupCardSelector, addCardFormSubmitHandler);
-const popupWithImage = new PopupWithImage(popupImageSelector)
-const userInfo = new UserInfo(nameSelector, subtitleSelector)
-
-function editProfileFormSubmitHandler(data) {
-  userInfo.setUserInfo(data)
-  popupEditProfile.close()
-}
-
-function addCardFormSubmitHandler(data) {
-  const cardElement = createCard({name: data['picture-titel'], link: data['picture-url']})
-  container.prepend(cardElement)
-  popupCardAdd.close()
-}
-
-export function handleCardClick(cardText, cardImage) {
-  popupWithImage.open(cardText, cardImage)
-}
-
-function createCard(data) {
-  const card = new Card(data, templateElement, handleCardClick)
-  return card.createDomNode()
-}
-
-const cardsList = new Section({
-  items: initialCards,
-  renderer: (item) => {
-    const cardElement = createCard(item)
-    cardsList.addItem(cardElement)
-  },
-},
-container
-)
-cardsList.renderItems()
-
-function fillEditProfileFields() {
-  userNameInput.value = profileTitle.textContent
-  userProfessionInput.value = profileSubtitle.textContent
-}
-
-editProfile.addEventListener('click', () => {
-  fillEditProfileFields()
-  editProfileFormValidator.removeValidationErrors()
-  popupEditProfile.open()
-})
-
-addPicture.addEventListener('click', () => {
-  formPicElement.reset()
-  addPicFormValidator.removeValidationErrors()
-  popupCardAdd.open()
-})*/

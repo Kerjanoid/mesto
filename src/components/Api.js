@@ -1,3 +1,5 @@
+import { userNameInput } from "../utils/constants"
+
 export default class Api {
   constructor({baseUrl, headers}) {
     this._baseUrl = baseUrl
@@ -27,36 +29,36 @@ export default class Api {
       .then(this._checkResponse)
   }
 
-  editProfile(userName, userAbout) {
+  editProfile(userData) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: userName,
-        about: userAbout
+        name: userData['profile-titel'],
+        about: userData['profile-subtitel']
       })
     })
       .then(this._checkResponse)
   }
 
   editAvatar(userAvatar) {
-    return fetch(`${this._baseUrl}/users/me/avatar `, {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        avatar: userAvatar
+        avatar: userAvatar['picture-url']
       })
     })
       .then(this._checkResponse);
   }
 
-  addCard(placeName, pictureLink) {
-    return fetch(`${this._baseUrl}/cards `, {
+  addCard(cardData) {
+    return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({
-        name: placeName,
-        link: pictureLink
+        name: cardData['picture-titel'],
+        link: cardData['picture-url']
       })
     })
       .then(this._checkResponse)
