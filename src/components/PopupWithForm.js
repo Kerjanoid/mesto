@@ -3,6 +3,7 @@ import Popup from './Popup.js'
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, handleSubmitForm) {
     super(popupSelector)
+    this._inactiveButtonClass = 'popup__submit-button_disabled'
     this._handleSubmitForm = handleSubmitForm
     this._form = this._popup.querySelector('.popup__form')
     this._inputList = this._form.querySelectorAll('.popup__input-field')
@@ -11,6 +12,11 @@ export default class PopupWithForm extends Popup {
 
   setSubmitButtonText(buttonText) {
     this._submitButton.textContent = buttonText
+  }
+
+  setSubmitButtonAttribute() {
+    this._submitButton.setAttribute('disabled', true)
+    this._submitButton.classList.add(this._inactiveButtonClass)
   }
 
   setSubmitCallback(callback) {

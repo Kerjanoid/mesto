@@ -51,12 +51,13 @@ editAvatar.addEventListener('click', () => {
 const toggleLoading = (popup, isLoaded) => {
   if (isLoaded) {
     if (popup === popupCardAdd) {
-      popup.setSubmitButtonText('Создать');
+      popup.setSubmitButtonText('Создать')
     } else {
-      popup.setSubmitButtonText('Сохранить');
+      popup.setSubmitButtonText('Сохранить')
     }
   } else {
-    popup.setSubmitButtonText('Сохранение...');
+    popup.setSubmitButtonText('Сохранение...')
+    popup.setSubmitButtonAttribute()
   }
 }
 
