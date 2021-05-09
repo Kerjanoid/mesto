@@ -83,7 +83,7 @@ const likeCardCallback = (isLiked, cardData, card) => {
 const deleteCardCallback = (cardData, card, evt) => {
   confirmPopup.setSubmitCallback(() => {
     api.removeCard(cardData._id)
-      .then(data => {
+      .then(() => {
         card.deleteCard(evt)
         confirmPopup.close()
     })
@@ -114,7 +114,7 @@ function editProfileFormSubmitHandler (userData) {
 }
 
 function addCardFormSubmitHandler (cardData) {
-  toggleLoading(popupCardAdd, false);
+  toggleLoading(popupCardAdd, false)
   api.addCard(cardData)
     .then(newPlace => {
       section.addItem(newPlace)
@@ -124,7 +124,7 @@ function addCardFormSubmitHandler (cardData) {
     console.log(err)
   })
     .finally(() => {
-      toggleLoading(popupCardAdd, true);
+      toggleLoading(popupCardAdd, true)
     })
 }
 
@@ -172,9 +172,9 @@ Promise.all([
   api.getUserInformation(),
   api.getInitialCards()
 ])
-  .then((values)=>{
-    updateUserInformation(values[0].name, values[0].about, values[0].avatar, values[0]._id)
-    section.renderItems(values[1].reverse())
+  .then(([userData, cards])=>{
+    updateUserInformation(userData.name, userData.about, userData.avatar, userData._id)
+    section.renderItems(cards.reverse())
   })
   .catch((err)=>{
     console.log(err)
